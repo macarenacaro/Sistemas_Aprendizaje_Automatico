@@ -61,7 +61,7 @@ print(MSE)
 #*****************5.OPCION2: Función de coste (MSE)*****************
 print(mean_squared_error(y, y_pred))
 
-#*****************6. Coeficiente de Determinacion*****************
+#*****************6. Evaluar Modelo: Coeficiente de Determinacion*****************
 print(r2_score(y, y_pred))
 
 
