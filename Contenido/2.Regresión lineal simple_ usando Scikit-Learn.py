@@ -26,7 +26,7 @@ plt.show()
 # *****************3. Entrenar el modelo: Mejor dato para m y b *****************
 
 reg = LinearRegression()
-reg.fit(x, y) # Entrenar el modelo con los datos
+reg.fit(x, y) # Entrenar el modelo con los datos #UTILIZA EL DESCENSO DE GRADIENTE
 m = reg.coef_[0][0] # Obtener la pendiente
 print(m)
 b = reg.intercept_[0] # Obtener el intercepto

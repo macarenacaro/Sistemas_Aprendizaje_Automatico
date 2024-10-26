@@ -29,7 +29,7 @@ plt.figure(figsize=(12,9))
 plt.scatter(x, y)#Muestra los puntos de datos reales en el gráfico.
 plt.show()
 
-# *****************3. Gradient Descent: Mejor dato para m y b *****************
+# *****************3. Gradient Descent: Mejor dato para m y b (ENTRENAR MODELO)*****************
 
 #esto sacará cual es el mejor valor de m y b, para el modelo lineal
 m = 0 #incializacion de m  
