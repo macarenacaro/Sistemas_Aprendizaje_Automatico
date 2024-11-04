@@ -84,20 +84,22 @@ clf.fit(X_train, y_train)  # Entrenamos el modelo con los datos de entrenamiento
 
 
 '''
-Haz predicciones para X_test
+Haz predicciones para X_test #con x_test
 '''
-y_pred = clf.predict(X_test) #Vamos a predecir 
+y_pred = clf.predict(X_test) #Vamos a predecir nuestra y con los datos de prueba de x
 print(f"Predicciones del modelo: {y_pred}")
 
 # Calcular probabilidades NO ES NECESARIO 
-#probabilities = clf.predict_proba(X_test)
-#print("Probabilidades de cada clase:")
-#print(probabilities)
+probabilities = clf.predict_proba(X_test)
+print("Probabilidades de cada clase:")
+print(probabilities)
 
 
 '''
 y calcula la exactitud del modelo con metrics.accuracy_score() para X_train e y_train
 '''
+#se refiere a calcular la exactitud del modelo en los datos de entrenamiento,
+
 # Calcula la exactitud del modelo en el conjunto de prueba
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Exactitud del modelo en el conjunto de prueba: {accuracy:.2f}, es decir se ajusta {accuracy*100:.2f}%")
