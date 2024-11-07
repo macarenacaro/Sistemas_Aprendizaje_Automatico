@@ -3,7 +3,6 @@ import pandas as pd
 from sklearn import linear_model
 from sklearn.linear_model import LinearRegression #para x e y
 from sklearn import metrics
-import matplotlib.pyplot as plt
 
 # 1. Importar Archivo de datos
 df = pd.read_csv('HousingData.csv')
@@ -39,6 +38,6 @@ p = np.array([[0.03731, 0.0, 7.07, 0.0, 0.469, 6.421, 23.5, 4.9671, 2.0, 242.0, 
 p_pred = regr.predict(p)  # Predicción
 print("Predicción para el nuevo ejemplo:", p_pred)
 
-# 8. Añadido de YAPA :) Calcular el coeficiente de determinación R²
+# 8. Añadido de YAPA :) Calcular el MSE
 y_pred = regr.predict(X)
 print('MSE:', metrics.mean_squared_error(y, y_pred))
