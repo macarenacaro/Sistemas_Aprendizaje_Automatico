@@ -1,4 +1,6 @@
 #**************************** INSPECCIÓN DEL DATASET ****************************
+#******************* TRATAMIENTO DE NaN ****************************
+
 import pandas as pd
 import numpy as np
 

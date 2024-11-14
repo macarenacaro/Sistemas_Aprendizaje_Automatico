@@ -26,7 +26,10 @@ print("DESCRIBE:",df.describe()) #df.describe(include='all')
 #max: Es el valor máximo encontrado en cada columna. Para capital-gain, el valor máximo es 99,999, lo que indica un valor de ganancia de capital excepcionalmente alto.
 
 
-#**************************** 3.PREPROCESANDO DATOS ****************************
+#**************************** PREPROCESANDO DATOS ****************************
+
+
+#*******************3. SUSTITUCIÓN [sex] ****************************
 
 #***** 3.1 Datos categóricos ****** : 
 #Tipo de datos que se pueden almacenar en grupos o categorías con nombres o etiquetas
@@ -43,6 +46,8 @@ df.drop(['sex'], axis=1, inplace=True) #Eliminar la Antigua
 
 
 #**************************** 4.LABEL ENCODER ****************************
+#******************* PROCESAR DATOS CATEGORICOS A ENTEROS ****************************
+
 #*****4.1 librería scikit-learn que se usa en machine learning para convertir datos categóricos (es decir, datos que representan categorías o clases) en números enteros
 print("WORKCLASS UNIQUE",df['workclass'].unique()) #Mostramos los valores que puede tomar de la col Workclass
 
@@ -82,8 +87,9 @@ print ("WORKCLASS CLASES COUNTS\n",df['workclass'].value_counts())
 
 
 
-
 #**************************** 5.ONE HOT ****************************
+#******************* PROCESAR DATOS CATEGORICOS A ENTEROS ****************************
+
 #*****5.1 Mostrar y contar valores
 print("RACE COUNTS", df['race'].value_counts()) #cuenta cuántas veces aparece cada categoría en la columna race
 print("RACE UNIQUE",df['race'].unique())#muestra todas las categorías únicas en la columna race, incluyendo un valor vacío (' ')
@@ -94,16 +100,50 @@ print("RACE COUNTS2",df['race'].value_counts())
 
 #*****5.4  Crear Columnas en numeros 
 dummies = pd.get_dummies(df['race'], prefix='race') # toma cada valor único en race y crea una columna nueva para cada uno.
-print ("RACE DUMMIES \n",dummies)
+print ("RACE DUMMIES \n",dummies) #el término "dummies" en realidad solo describe las columnas binarias resultantes, en pandas, no sognifica que estoy utilizando metodo dummies
 
 #*****5.5  Agregar a tabla original y eliminar la columna race
 df = pd.concat([df, dummies], axis=1) # agrega las nuevas columnas dummy al DataFrame df.
 df.drop(['race'], axis=1, inplace=True) #elimina la columna original race para evitar duplicados.
 print(df)
 
+#**************************** ¡¡¡5.ONE HOT VERSION MACA!!! ****************************
+#Hice este porque aqui se importa OneHotEncoder, no se usa dummies, es decir, ambos hacen lo mismo pero son metodos diferentes
+#en el ejemplo anterior se explicó oneHot con dummies, no le encontraba la diferencia. 
+
+from sklearn.preprocessing import OneHotEncoder
+import pandas as pd
+
+# Crear un ejemplo de DataFrame similar al tuyo
+data = {'race': ['White', 'Black', 'Asian', 'White', 'Black', 'White']}
+df = pd.DataFrame(data)
+
+# **5.1 Mostrar y contar valores**
+print("RACE COUNTS", df['race'].value_counts())  # Cuenta cuántas veces aparece cada categoría en la columna 'race'
+
+# **5.3 Eliminar filas con valores no deseados** (aunque en este ejemplo no tenemos espacios vacíos, lo harías como en tu código)
+df = df[df['race'] != ' ']  # Esto eliminaría filas con valores vacíos
+
+# **5.4 OneHotEncoder de scikit-learn**
+encoder = OneHotEncoder(sparse=False)  # Sparse=False devuelve una matriz densa (no dispersa), si prefieres matrices dispersas puedes poner sparse=True
+
+# Transformar los datos categóricos (aplica One-Hot Encoding)
+encoded_race = encoder.fit_transform(df[['race']])  # El parámetro fit_transform hace el ajuste y la transformación en un solo paso
+
+# Convertir el resultado en un DataFrame para un manejo más fácil
+encoded_race_df = pd.DataFrame(encoded_race, columns=encoder.get_feature_names_out(['race']))
+
+# **5.5 Agregar las nuevas columnas codificadas a la tabla original**
+df = pd.concat([df, encoded_race_df], axis=1)
+df.drop(['race'], axis=1, inplace=True)  # Eliminar la columna original para evitar duplicados
+
+# Mostrar el DataFrame final
+print(df)
 
 
-#**************************** 6. Categorical Encoding: CODIFICAR LABELS ****************************
+
+
+#**************************** 6. Encode_Label ****************************
 #*****6.1 Crear Funcion para crear la columna de manera numerica
 def encode_label(df):
     return df.astype('category').cat.codes
@@ -133,7 +173,7 @@ df['gains'] = encode_label(df['gains'])
 
 """EL PROBLEMA DE ESTO, ES QUE NO PODEMOS VER A QUE ELEMENTO CORRESPONDE EL Nº 0, 1 ,2...  el proximo caso lo haremos de 
 manera diferente para poder apreciar eso (VERSION MACA)"""
-#**************************** 7. Categorical Encoding: Maca ****************************
+#**************************** 7. Enconde_Label Maca ****************************
 #***** 7.0: Definir la función para codificar etiquetas
 def encode_label(df): 
     return df.astype('category').cat.codes

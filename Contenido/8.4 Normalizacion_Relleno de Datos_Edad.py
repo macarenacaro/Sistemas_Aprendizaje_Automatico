@@ -1,5 +1,7 @@
 #**************************** RandomForestRegressor
 # imputando valores predichos por machine learning
+#estamos utilizando el método de aprendizaje automático RandomForestRegressor para llenar los valores 
+# faltantes (NaN) en la columna age
 
 #**************************** INSPECCIÓN DEL DATASET ****************************
 import pandas as pd

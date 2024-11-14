@@ -31,6 +31,7 @@ df.loc[(df['Hour-bin'] == 40), 'Hour-bin'] = 3  # Jornada completa
 df.loc[(df['Hour-bin'] > 40), 'Hour-bin'] = 4  # Superior a jornada completa
 
 #**************************** 7.Crear columnas dummies ****************************
+#Dummies también son categoricos
 df['No trabaja'] = df['Hour-bin'].map(lambda s: 1 if s == 0 else 0)
 df['Menos de media jornada'] = df['Hour-bin'].map(lambda s: 1 if s == 1 else 0)
 df['Media jornada'] = df['Hour-bin'].map(lambda s: 1 if s == 2 else 0)
